@@ -1,22 +1,23 @@
-C = gcc
-CFLAGS  = -g -Wall -Werror 
- 
-default: test_assign2_1
+all: test_assign2_1
 
-test_assign2_1: test_assign2_1.o storage_mgr.o dberror.o buffer_mgr.o buffer_mgr_stat.o
-	$(CC) $(CFLAGS) -o test_assign2_1 test_assign2_1.o storage_mgr.o dberror.o buffer_mgr.o buffer_mgr_stat.o -lm
+test_assign2_1: test_assign2_1.o storage_mgr.o dberror.o buffer_mgr_stat.o buffer_mgr.o
+	gcc test_assign2_1.o storage_mgr.o dberror.o buffer_mgr_stat.o buffer_mgr.o -o test_assign2_1
 
-test_assign2_2: test_assign2_2.o storage_mgr.o dberror.o buffer_mgr.o buffer_mgr_stat.o
-	$(CC) $(CFLAGS) -o test_assign2_2 test_assign2_2.o storage_mgr.o dberror.o buffer_mgr.o buffer_mgr_stat.o -lm
+test_assign2_1.o: test_assign2_1.c
+	gcc -c test_assign2_1.c
 
-test_assign2_1.o: test_assign2_1.c dberror.h storage_mgr.h test_helper.h buffer_mgr.h buffer_mgr_stat.h
-	$(CC) $(CFLAGS) -c test_assign2_1.c -lm
+storage_mgr.o: storage_mgr.c
+	gcc -c storage_mgr.c
 
-test_assign2_2.o: test_assign2_2.c dberror.h storage_mgr.h test_helper.h buffer_mgr.h buffer_mgr_stat.h
-	$(CC) $(CFLAGS) -c test_assign2_2.c -lm
+dberror.o: dberror.c
+	gcc -c dberror.c
 
-buffer_mgr_stat.o: buffer_mgr_stat.c buffer_mgr_stat.h buffer_mgr.h
-	$(CC) $(CFLAGS) -c buffer_mgr_stat.c
+buffer_mgr.o: buffer_mgr.c
+	gcc -c buffer_mgr.c
 
-buffer_mgr.o: buffer_mgr.c buffer_mgr.h dt.h storage_mgr.h
-	$(CC) $(CFLAGS) -c buffer_mgr.c
+buffer_mgr_stat.o: buffer_mgr_stat.c
+	gcc -c buffer_mgr_stat.c
+
+clean:
+	rm test_assign2_1
+	
